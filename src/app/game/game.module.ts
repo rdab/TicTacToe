@@ -6,6 +6,9 @@ import { GameComponent } from './game/game.component';
   declarations: [GameComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [
+    GameComponent,
+  ],
 })
 export class GameModule { }
