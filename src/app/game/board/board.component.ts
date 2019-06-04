@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
+  private _values: string[][] = [
+    ['-','-','-',],
+    ['-','-','-',],
+    ['-','-','-',],
+  ];
+
   constructor() { }
 
   ngOnInit() {
