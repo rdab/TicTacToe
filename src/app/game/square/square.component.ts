@@ -16,6 +16,6 @@ export class SquareComponent implements OnInit {
   }
 
   _handleSquareClick() {
-    console.log('Square click')
+    console.log('Square click', this.row, this.column)
   }  
 }
