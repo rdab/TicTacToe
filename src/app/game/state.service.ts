@@ -45,4 +45,15 @@ export class StateService {
       this.state = this.state;
     }
   }
+
+  reset(){
+    this.state = {
+      turn: 'PLAYER_X',
+      values: [
+        ['-','-','-',],
+        ['-','-','-',],
+        ['-','-','-',],
+      ],
+    }
+  }
 }
