@@ -4,10 +4,11 @@ import { GameComponent } from './game/game.component';
 import { HeaderComponent } from './header/header.component';
 import { BoardComponent } from './board/board.component';
 import { SquareComponent } from './square/square.component';
-import { StateService } from './state.service'
+import { StateService } from './state.service';
+import { PlayCounterComponent } from './play-counter/play-counter.component';
 
 @NgModule({
-  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent],
+  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent, PlayCounterComponent],
   imports: [
     CommonModule
   ],
