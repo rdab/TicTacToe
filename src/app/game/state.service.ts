@@ -24,4 +24,15 @@ export class StateService {
     });
    }
    
+   get stateSubject(): BehaviorSubject<State> {
+     return this._stateSubject;
+   }
+
+   get state(): State {
+     return this._stateSubject.getValue();
+   }
+
+   set state(state: State) {
+     this._stateSubject.next(state);
+   }
 }
