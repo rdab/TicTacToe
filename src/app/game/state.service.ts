@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface State {
   turn: string;
@@ -10,5 +11,17 @@ export interface State {
 })
 export class StateService {
 
-  constructor() { }
+  private _stateSubject: BehaviorSubject<State>;
+
+  constructor() {
+    this._stateSubject = new BehaviorSubject({
+      turn: 'PLAYER_X',
+      values: [
+        ['-','-','-',],
+        ['-','-','-',],
+        ['-','-','-',],
+      ],
+    });
+   }
+   
 }
