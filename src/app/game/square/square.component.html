@@ -1,1 +1,1 @@
-<button (click)="_handleSquareClick()"> - </button>
+<button (click)="_handleSquareClick()"> {{ (_stateService.stateSubject | async).values[row][column] }}</button>
