@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from './../state.service'
 
 @Component({
   selector: 'app-board',
@@ -7,13 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  private _values: string[][] = [
-    ['-','-','-',],
-    ['-','-','-',],
-    ['-','-','-',],
-  ];
+  private _values: string[][];
 
-  constructor() { }
+  constructor(stateService: StateService) {
+    this._values = stateService.state.values;
+   }
 
   ngOnInit() {
   }
