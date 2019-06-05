@@ -35,4 +35,14 @@ export class StateService {
    set state(state: State) {
      this._stateSubject.next(state);
    }
+
+   updateValue(row, col){
+     if(this.state.values[row][col] === '-'){
+       let newValue = this.state.turn === 'PLAYER_X' ? 'X' : '0';
+       let newTurn = this.state.turn === 'PLAYER_X' ? 'PLAYER_0' : 'PLAYER_X';
+       this.state.values[row][col] = newValue;
+       this.state.turn = newTurn;
+       this.state = this.state;
+     }
+   }
 }
