@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-reset',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetComponent implements OnInit {
 
-  constructor() { }
+  private _stateService: StateService;
+
+  constructor(stateService: StateService) {
+    this._stateService = stateService;
+   }
 
   ngOnInit() {
   }
 
+  reset() {
+    this._stateService.reset();
+  }
 }
