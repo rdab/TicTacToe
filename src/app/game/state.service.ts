@@ -2,20 +2,18 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface State {
-  turn: string;
+  turn: Player;
   values: string[][];
   plays: number;
 }
 
-function cleanState(){
-  return {
-    turn: 'PLAYER_X',
-    values: [
-      ['-','-','-',],
-      ['-','-','-',],
-      ['-','-','-',],
-    ],
-    plays: 0,
+class Player {
+  private _name: string;
+  private _symbol: string;
+
+  constructor(public name:string, public symbol:string) {
+    this._name = name;
+    this._symbol = symbol;
   }
 }
 
@@ -24,11 +22,16 @@ function cleanState(){
 })
 export class StateService {
 
+  private _player1: Player;
+  private _player2: Player;
   private _state$: BehaviorSubject<State>;
 
   constructor() {
-    this._state$ = new BehaviorSubject(cleanState());
-   }
+    this._player1 = new Player('Player 1', "X");
+    this._player2 = new Player('Player 2', "0");
+    let initState = this.clearState(this._player1);
+    this._state$ = new BehaviorSubject(initState);
+  }
    
   get state$(): BehaviorSubject<State> {
     return this._state$;
@@ -43,10 +46,9 @@ export class StateService {
   }
 
   updateValue(row, col){
-    if(this.state.values[row][col] === '-'){
-      let newValue = this.state.turn === 'PLAYER_X' ? 'X' : '0';
-      let newTurn = this.state.turn === 'PLAYER_X' ? 'PLAYER_0' : 'PLAYER_X';
-      this.state.values[row][col] = newValue;
+    if (this.state.values[row][col] === '-'){
+      this.state.values[row][col] = this.state.turn.symbol;
+      let newTurn = this.state.turn === this._player1 ? this._player2 : this._player1;
       this.state.turn = newTurn;
       this.state.plays++;
       this.state = this.state;
@@ -54,6 +56,19 @@ export class StateService {
   }
 
   reset() {
-    this.state = cleanState();
+    this.state = this.clearState();
+  }
+
+  clearState(startingPlayer?: Player){
+    let player = startingPlayer || this._player1;
+    return {
+      turn: player,
+      values: [
+        ['-','-','-',],
+        ['-','-','-',],
+        ['-','-','-',],
+      ],
+      plays: 0,
+    }
   }
 }
