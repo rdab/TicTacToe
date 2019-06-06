@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 export interface State {
   turn: string;
   values: string[][];
+  plays: number;
 }
 
 @Injectable({
@@ -21,6 +22,7 @@ export class StateService {
         ['-','-','-',],
         ['-','-','-',],
       ],
+      plays: 0,
     });
    }
    
@@ -42,6 +44,7 @@ export class StateService {
       let newTurn = this.state.turn === 'PLAYER_X' ? 'PLAYER_0' : 'PLAYER_X';
       this.state.values[row][col] = newValue;
       this.state.turn = newTurn;
+      this.state.plays++;
       this.state = this.state;
     }
   }
@@ -54,6 +57,7 @@ export class StateService {
         ['-','-','-',],
         ['-','-','-',],
       ],
+      plays: 0,
     }
   }
 }
