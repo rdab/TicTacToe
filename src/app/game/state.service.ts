@@ -12,10 +12,10 @@ export interface State {
 })
 export class StateService {
 
-  private _stateSubject: BehaviorSubject<State>;
+  private _state$: BehaviorSubject<State>;
 
   constructor() {
-    this._stateSubject = new BehaviorSubject({
+    this._state$ = new BehaviorSubject({
       turn: 'PLAYER_X',
       values: [
         ['-','-','-',],
@@ -26,16 +26,16 @@ export class StateService {
     });
    }
    
-  get stateSubject(): BehaviorSubject<State> {
-    return this._stateSubject;
+  get state$(): BehaviorSubject<State> {
+    return this._state$;
   }
 
   get state(): State {
-    return this._stateSubject.getValue();
+    return this._state$.getValue();
   }
 
   set state(state: State) {
-    this._stateSubject.next(state);
+    this._state$.next(state);
   }
 
   updateValue(row, col){
