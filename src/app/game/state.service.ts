@@ -7,6 +7,18 @@ export interface State {
   plays: number;
 }
 
+function cleanState(){
+  return {
+    turn: 'PLAYER_X',
+    values: [
+      ['-','-','-',],
+      ['-','-','-',],
+      ['-','-','-',],
+    ],
+    plays: 0,
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,15 +27,7 @@ export class StateService {
   private _state$: BehaviorSubject<State>;
 
   constructor() {
-    this._state$ = new BehaviorSubject({
-      turn: 'PLAYER_X',
-      values: [
-        ['-','-','-',],
-        ['-','-','-',],
-        ['-','-','-',],
-      ],
-      plays: 0,
-    });
+    this._state$ = new BehaviorSubject(cleanState());
    }
    
   get state$(): BehaviorSubject<State> {
@@ -49,15 +53,7 @@ export class StateService {
     }
   }
 
-  reset(){
-    this.state = {
-      turn: 'PLAYER_X',
-      values: [
-        ['-','-','-',],
-        ['-','-','-',],
-        ['-','-','-',],
-      ],
-      plays: 0,
-    }
+  reset() {
+    this.state = cleanState();
   }
 }
