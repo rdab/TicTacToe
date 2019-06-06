@@ -6,9 +6,10 @@ import { BoardComponent } from './board/board.component';
 import { SquareComponent } from './square/square.component';
 import { StateService } from './state.service';
 import { PlayCounterComponent } from './play-counter/play-counter.component';
+import { ResetComponent } from './reset/reset.component';
 
 @NgModule({
-  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent, PlayCounterComponent],
+  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent, PlayCounterComponent, ResetComponent],
   imports: [
     CommonModule
   ],
