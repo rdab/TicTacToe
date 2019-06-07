@@ -1,3 +1,6 @@
-<p>
+<p *ngIf="!(_stateService.state$ | async).winner">
   Turn of {{ (_stateService.state$ | async).turn.name }} - {{ (_stateService.state$ | async).turn.symbol }}s
+</p>
+<p *ngIf="(_stateService.state$ | async).winner">
+  There is a Winner {{ (_stateService.state$ | async).winner.name }} - {{ (_stateService.state$ | async).winner.symbol }}s
 </p>

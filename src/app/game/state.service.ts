@@ -5,6 +5,7 @@ export interface State {
   turn: Player;
   values: string[][];
   plays: number;
+  winner: Player;
 }
 
 class Player {
@@ -45,12 +46,40 @@ export class StateService {
     this._state$.next(state);
   }
 
+  checkWinner(): Player {
+    if (this.state.plays < 5){ return null }
+    let v = this.state.values;
+    let winMatrix = [
+      [[0,0],[0,1],[0,2]],
+      [[1,0],[1,1],[1,2]],
+      [[2,0],[2,1],[2,2]],
+      [[0,0],[1,0],[2,0]],
+      [[0,0],[1,0],[2,0]],
+      [[0,1],[1,1],[2,1]],
+      [[0,2],[1,2],[2,2]],
+      [[0,0],[1,1],[2,2]],
+      [[0,2],[1,1],[2,0]],
+    ]
+    for (let condition of winMatrix) {
+      let cond1 = condition[0];
+      let cond2 = condition[1];
+      let cond3 = condition[2];
+      let a = v[cond1[0]][cond1[1]];
+      let b = v[cond2[0]][cond2[1]];
+      let c = v[cond3[0]][cond3[1]];
+      if ((a===b) && (b===c) && (a !== '-')) {
+        return a === this._player1.symbol ? this._player1 : this._player2;
+      }
+    }
+  }
+
   updateValue(row, col){
     if (this.state.values[row][col] === '-'){
       this.state.values[row][col] = this.state.turn.symbol;
       let newTurn = this.state.turn === this._player1 ? this._player2 : this._player1;
       this.state.turn = newTurn;
       this.state.plays++;
+      this.state.winner = this.checkWinner();
       this.state = this.state;
     }
   }
@@ -69,6 +98,7 @@ export class StateService {
         ['-','-','-',],
       ],
       plays: 0,
+      winner: null,
     }
   }
 }
