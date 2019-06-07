@@ -74,14 +74,18 @@ export class StateService {
   }
 
   updateValue(row, col){
-    if (this.state.values[row][col] === '-'){
-      this.state.values[row][col] = this.state.turn.symbol;
-      let newTurn = this.state.turn === this._player1 ? this._player2 : this._player1;
-      this.state.turn = newTurn;
-      this.state.plays++;
-      this.state.winner = this.checkWinner();
-      this.state = this.state;
+    if (this.state.values[row][col] !== '-'){
+      return null;
     }
+    this.state.values[row][col] = this.state.turn.symbol;
+    this.state.plays++;
+    let winner = this.checkWinner();
+    if (winner){
+      this.state.winner = this.checkWinner();
+    } else {
+      this.state.turn = this.state.turn === this._player1 ? this._player2 : this._player1;
+    }
+    this.state = this.state;
   }
 
   reset() {
