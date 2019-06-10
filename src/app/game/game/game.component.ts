@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ActivatedRoute } from "@angular/router";
+import { State, StateService, Player} from "./../state.service";
+
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -7,7 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameComponent implements OnInit {
 
-  constructor() { }
+  constructor(route: ActivatedRoute, stateService: StateService) { 
+    if (route.snapshot.data.continue){
+      stateService.state = {
+        turn: new Player('test', 'X'),
+        values: [
+          ['-','-','-',],
+          ['X','-','-',],
+          ['-','-','-',],
+        ],
+        plays: 0,
+        winner: null,
+      };
+    } else {
+      stateService.reset();
+    }
+  }
 
   ngOnInit() {
   }

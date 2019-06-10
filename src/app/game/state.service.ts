@@ -8,7 +8,7 @@ export interface State {
   winner: Player;
 }
 
-class Player {
+export class Player {
   private _name: string;
   private _symbol: string;
 
