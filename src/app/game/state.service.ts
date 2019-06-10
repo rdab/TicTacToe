@@ -61,14 +61,14 @@ export class StateService {
       [[0,2],[1,1],[2,0]],
     ]
     for (let condition of winMatrix) {
-      let cond1 = condition[0];
-      let cond2 = condition[1];
-      let cond3 = condition[2];
-      let a = v[cond1[0]][cond1[1]];
-      let b = v[cond2[0]][cond2[1]];
-      let c = v[cond3[0]][cond3[1]];
-      if ((a===b) && (b===c) && (a !== '-')) {
-        return a === this._player1.symbol ? this._player1 : this._player2;
+      let point1 = condition[0];
+      let point2 = condition[1];
+      let point3 = condition[2];
+      let val1 = v[point1[0]][point1[1]];
+      let val2 = v[point2[0]][point2[1]];
+      let val3 = v[point3[0]][point3[1]];
+      if ((val1===val2) && (val2===val3) && (val1 !== '-')) {
+        return val1 === this._player1.symbol ? this._player1 : this._player2;
       }
     }
   }
