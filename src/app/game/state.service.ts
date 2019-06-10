@@ -81,7 +81,7 @@ export class StateService {
     this.state.plays++;
     let winner = this.checkWinner();
     if (winner){
-      this.state.winner = this.checkWinner();
+      this.state.winner = winner;
     } else {
       this.state.turn = this.state.turn === this._player1 ? this._player2 : this._player1;
     }
