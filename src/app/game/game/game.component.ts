@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from "@angular/router";
 import { State, StateService, Player} from "./../state.service";
+import { MyhttpService } from "../../myhttp.service";
 
 @Component({
   selector: 'app-game',
@@ -10,18 +11,11 @@ import { State, StateService, Player} from "./../state.service";
 })
 export class GameComponent implements OnInit {
 
-  constructor(route: ActivatedRoute, stateService: StateService) { 
+  constructor(route: ActivatedRoute, stateService: StateService, myHttpService: MyhttpService) { 
     if (route.snapshot.data.continue){
-      stateService.state = {
-        turn: new Player('test', 'X'),
-        values: [
-          ['-','-','-',],
-          ['X','-','-',],
-          ['-','-','-',],
-        ],
-        plays: 0,
-        winner: null,
-      };
+      myHttpService.getSavedGame().subscribe((state: State) => {
+        stateService.state = state;
+      });
     } else {
       stateService.reset();
     }
