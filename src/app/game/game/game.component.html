@@ -1,21 +1,21 @@
 <div *ngIf="_status == 'fetching'">Loading...</div>
 <div *ngIf="_status == 'success'">
 
-    <form *ngIf="(_stateService.state$ | async).playerName == ''">
+    <form *ngIf="(_stateService.state$ | async).player1 == '' || (_stateService.state$ | async).player2 == ''">
         <div>
             <label>Player 1 Name</label>
-            <input [(ngModel)]="_playerName" name='player1' type="text" />
+            <input [(ngModel)]="_player1" name='player1' type="text" />
         </div>
         <div>
             <label>Player 2 Name</label>
-            <input [(ngModel)]="_playerName" name='player2' type="text" />
+            <input [(ngModel)]="_player2" name='player2' type="text" />
         </div>
         <button (click)="_handleSubmitClick()" type="submit">
             Submit
         </button>
     </form>
 
-    <div *ngIf="(_stateService.state$ | async).playerName != ''">
+    <div *ngIf="(_stateService.state$ | async).player1 != '' && (_stateService.state$ | async).player2 != ''">
         <app-header></app-header>
         <app-board></app-board>
         <app-play-counter></app-play-counter>

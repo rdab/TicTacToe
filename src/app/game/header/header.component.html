@@ -1,5 +1,5 @@
 <header>
-  <h3>Welcome {{ (_stateService.state$ | async).playerName }}</h3>
+  <h3>Welcome {{ (_stateService.state$ | async).player1 }} and {{ (_stateService.state$ | async).player2 }}</h3>
   <h3>
     <p *ngIf="!(_stateService.state$ | async).winner && 
               (_stateService.state$ | async).plays != 9">

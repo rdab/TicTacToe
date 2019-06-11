@@ -32,7 +32,7 @@ export class GameComponent implements OnInit {
   }
 
   _handleSubmitClick(){
-    this._stateService.state.playerName = this._player1
+    this._stateService.setPlayersName(this._player1, this._player2);
   }
   ngOnInit() {
   }

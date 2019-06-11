@@ -6,7 +6,8 @@ export interface State {
   values: string[][];
   plays: number;
   winner: Player;
-  playerName: string;
+  player1: string;
+  player2: string;
 }
 
 class Player {
@@ -104,7 +105,13 @@ export class StateService {
       ],
       plays: 0,
       winner: null,
-      playerName: '',
+      player1: '',
+      player2: '',
     }
+  }
+
+  setPlayersName(player1: string, player2: string){
+    this.state.player1 = player1;
+    this.state.player2 = player2;
   }
 }
