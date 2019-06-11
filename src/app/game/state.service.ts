@@ -111,7 +111,9 @@ export class StateService {
   }
 
   setPlayersName(player1: string, player2: string){
+    this._player1.name = player1;
     this.state.player1 = player1;
+    this._player2.name = player2;
     this.state.player2 = player2;
   }
 }
