@@ -12,7 +12,8 @@ import { MyhttpService } from "../../myhttp.service";
 export class GameComponent implements OnInit {
 
   private _status: string = 'fetching';
-  private _playerName: string = '';
+  private _player1: string = '';
+  private _player2: string = '';
   private _stateService: StateService;
 
   constructor(route: ActivatedRoute, stateService: StateService, myHttpService: MyhttpService) { 
@@ -31,7 +32,7 @@ export class GameComponent implements OnInit {
   }
 
   _handleSubmitClick(){
-    this._stateService.state.playerName = this._playerName
+    this._stateService.state.playerName = this._player1
   }
   ngOnInit() {
   }
