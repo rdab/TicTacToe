@@ -1,11 +1,16 @@
-<p *ngIf="!(_stateService.state$ | async).winner && 
-           (_stateService.state$ | async).plays != 9">
-  Turn of {{ (_stateService.state$ | async).turn.name }} - {{ (_stateService.state$ | async).turn.symbol }}s
-</p>
-<p *ngIf="(_stateService.state$ | async).winner">
-  There is a Winner {{ (_stateService.state$ | async).winner.name }} - {{ (_stateService.state$ | async).winner.symbol }}s
-</p>
-<p *ngIf="!(_stateService.state$ | async).winner && 
-           (_stateService.state$ | async).plays == 9">
-  It's a Draw! Try again!
-</p>
+<header>
+  <h3>Welcome {{ _stateService._player1.name }}</h3>
+  <h3>
+    <p *ngIf="!(_stateService.state$ | async).winner && 
+              (_stateService.state$ | async).plays != 9">
+      Turn of {{ (_stateService.state$ | async).turn.name }} - {{ (_stateService.state$ | async).turn.symbol }}s
+    </p>
+    <p *ngIf="(_stateService.state$ | async).winner">
+      There is a Winner {{ (_stateService.state$ | async).winner.name }} - {{ (_stateService.state$ | async).winner.symbol }}s
+    </p>
+    <p *ngIf="!(_stateService.state$ | async).winner && 
+              (_stateService.state$ | async).plays == 9">
+      It's a Draw! Try again!
+    </p>
+  </h3>
+</header>
