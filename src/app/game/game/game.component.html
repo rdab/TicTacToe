@@ -1,4 +1,10 @@
-<app-header></app-header>
-<app-board></app-board>
-<app-play-counter></app-play-counter>
-<app-reset></app-reset>
+<div *ngIf="_status == 'fetching'">Loading...</div>
+<div *ngIf="_status == 'success'">
+    <app-header></app-header>
+    <app-board></app-board>
+    <app-play-counter></app-play-counter>
+    <app-reset></app-reset>
+</div>
+<div *ngIf="_status != 'fetching' && _status != 'success'">
+    There is a problem communicating with the backend. Error: {{ _status }} 
+</div>
