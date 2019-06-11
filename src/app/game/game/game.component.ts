@@ -12,8 +12,11 @@ import { MyhttpService } from "../../myhttp.service";
 export class GameComponent implements OnInit {
 
   private _status: string = 'fetching';
+  private _playerName: string = '';
+  private _stateService: StateService;
 
   constructor(route: ActivatedRoute, stateService: StateService, myHttpService: MyhttpService) { 
+    this._stateService = stateService;
     if (route.snapshot.data.continue){
       myHttpService.getSavedGame().subscribe((state: State) => {
         stateService.state = state;
@@ -27,6 +30,9 @@ export class GameComponent implements OnInit {
     }
   }
 
+  _handleSubmitClick(){
+    this._stateService.state.playerName = this._playerName
+  }
   ngOnInit() {
   }
 

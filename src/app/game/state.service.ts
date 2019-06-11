@@ -6,6 +6,7 @@ export interface State {
   values: string[][];
   plays: number;
   winner: Player;
+  playerName: string;
 }
 
 class Player {
@@ -103,6 +104,7 @@ export class StateService {
       ],
       plays: 0,
       winner: null,
+      playerName: '',
     }
   }
 }
