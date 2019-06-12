@@ -127,10 +127,6 @@ export class StateService {
   constructor() {
     this._game = new TicTacToe();
   }
-   
-  get state$(): BehaviorSubject<TicTacToe> {
-    return this._game.onChange$;
-  }
 
   get currentGame(): TicTacToe {
     return this._game;

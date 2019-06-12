@@ -8,13 +8,12 @@ import { StateService } from './../state.service'
 })
 export class PlayCounterComponent implements OnInit {
 
-  private _stateService: StateService;
+  private _game;
 
   constructor(stateService: StateService) {
-    this._stateService = stateService;
+    this._game = stateService.currentGame;
    }
 
   ngOnInit() {
   }
-
 }

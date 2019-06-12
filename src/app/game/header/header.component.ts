@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService, TicTacToe } from './../state.service'
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +8,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  private _game$: BehaviorSubject<TicTacToe>;
+  private _game: TicTacToe;
 
   constructor(stateService: StateService) {
-    this._game$ = stateService.state$;
+    this._game = stateService.currentGame;
    }
 
   ngOnInit() {

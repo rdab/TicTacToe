@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService, TicTacToe } from '../state.service';
+import { StateService } from '../state.service';
 
 @Component({
   selector: 'app-reset',

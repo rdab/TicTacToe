@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StateService, State, TicTacToe } from './../state.service'
-import { BehaviorSubject } from 'rxjs';
+import { StateService, TicTacToe } from './../state.service'
 
 @Component({
   selector: 'app-square',
@@ -13,11 +12,9 @@ export class SquareComponent implements OnInit {
   @Input() column: number;
 
   private _game: TicTacToe;
-  private _game$: BehaviorSubject<TicTacToe>
 
   constructor(stateService: StateService) {
     this._game = stateService.currentGame;
-    this._game$ = stateService.state$;
    }
 
   ngOnInit() {
