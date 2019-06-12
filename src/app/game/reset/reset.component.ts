@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StateService } from '../state.service';
+import { StateService, TicTacToe } from '../state.service';
 
 @Component({
   selector: 'app-reset',
@@ -18,6 +18,6 @@ export class ResetComponent implements OnInit {
   }
 
   reset() {
-    this._stateService.reset();
+    this._stateService.newGame();
   }
 }

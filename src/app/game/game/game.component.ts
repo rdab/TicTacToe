@@ -20,20 +20,21 @@ export class GameComponent implements OnInit {
     this._stateService = stateService;
     if (route.snapshot.data.continue){
       myHttpService.getSavedGame().subscribe((state: State) => {
-        stateService.state = state;
+        // stateService.state = state;
         this._status = 'success';
       }, error => {
         this._status = error.statusText;
       });
     } else {
-      stateService.reset();
+      stateService.newGame(this._player1, this._player2);
       this._status = 'success';
     }
   }
 
   _handleSubmitClick(){
-    this._stateService.setPlayersName(this._player1, this._player2);
+    this._stateService.newGame(this._player1, this._player2);
   }
+
   ngOnInit() {
   }
 
