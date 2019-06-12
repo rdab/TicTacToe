@@ -16,7 +16,7 @@ export class SquareComponent implements OnInit {
   private _game$: BehaviorSubject<TicTacToe>
 
   constructor(stateService: StateService) {
-    this._game = stateService.state;
+    this._game = stateService.currentGame;
     this._game$ = stateService.state$;
    }
 

@@ -132,8 +132,8 @@ export class StateService {
     return this._game.onChange$;
   }
 
-  get state(): TicTacToe {
-    return this.state$.getValue();
+  get currentGame(): TicTacToe {
+    return this._game;
   }
 
   newGame(player1='', player2=''){
