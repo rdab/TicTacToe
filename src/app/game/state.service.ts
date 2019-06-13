@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface State {
-  turn: Player;
+  turn: string;
   values: string[][];
   plays: number;
-  winner: Player;
+  player1: string;
+  player2: string;
 }
 
 export class TicTacToe {
