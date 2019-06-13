@@ -8,7 +8,7 @@ export interface State {
   winner: Player;
 }
 
-export class TicTacToe implements State {
+export class TicTacToe {
 
   private _turn: Player;
   private _values: string[][];
