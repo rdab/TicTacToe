@@ -20,7 +20,8 @@ export class GameComponent implements OnInit {
     this._stateService = stateService;
     if (route.snapshot.data.continue){
       myHttpService.getSavedGame().subscribe((state: State) => {
-        // stateService.state = state;
+        console.log(state);
+        stateService.loadFromJSON(state);
         this._status = 'success';
       }, error => {
         this._status = error.statusText;

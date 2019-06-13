@@ -19,17 +19,20 @@ export class TicTacToe {
   private _player2: Player;
   private _subject$: BehaviorSubject<TicTacToe>;
 
-  constructor(player1='', player2=''){
+  constructor(player1='', player2='', values?: string[][], plays?: number, turn?: string){
     this._player1 = new Player(player1, "X");
     this._player2 = new Player(player2, "0");
-    this._values = [
+    this._values = values || [
       ['-','-','-',],
       ['-','-','-',],
       ['-','-','-',],
     ];
-    this._plays = 0;
+    this._plays = plays || 0;
     this._winner = null;
     this._turn = this._player1; 
+    if (turn){
+      this._turn = (turn == this._player1.name) ? this._player1 : this._player2;
+    }
     this._subject$ = new BehaviorSubject(this);
   }
 
@@ -135,5 +138,15 @@ export class StateService {
 
   newGame(player1='', player2=''){
     this._game = new TicTacToe(player1, player2);
+  }
+
+  loadFromJSON(state: State){
+    this._game = new TicTacToe(
+      state['player1'],
+      state['player2'],
+      state['values'],
+      state['plays'],
+      state['turn']
+      );
   }
 }
