@@ -18,6 +18,6 @@ export class ResetComponent implements OnInit {
   }
 
   reset() {
-    this._stateService.reset();
+    this._stateService.newGame();
   }
 }

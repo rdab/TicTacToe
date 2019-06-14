@@ -1,15 +1,15 @@
 <header>
-  <h3>Welcome {{ (_stateService.state$ | async).player1 }} and {{ (_stateService.state$ | async).player2 }}</h3>
+  <h3>Welcome {{ (_game.onChange$ | async).player1 }} and {{ (_game.onChange$ | async).player2 }}</h3>
   <h3>
-    <p *ngIf="!(_stateService.state$ | async).winner && 
-              (_stateService.state$ | async).plays != 9">
-      Turn of {{ (_stateService.state$ | async).turn.name }} - {{ (_stateService.state$ | async).turn.symbol }}s
+    <p *ngIf="!(_game.onChange$ | async).winner && 
+              (_game.onChange$ | async).plays != 9">
+      Turn of {{ (_game.onChange$ | async).turn.name }} - {{ (_game.onChange$ | async).turn.symbol }}s
     </p>
-    <p *ngIf="(_stateService.state$ | async).winner">
-      There is a Winner: {{ (_stateService.state$ | async).winner.name }} - {{ (_stateService.state$ | async).winner.symbol }}s
+    <p *ngIf="(_game.onChange$ | async).winner">
+      There is a Winner: {{ (_game.onChange$ | async).winner.name }} - {{ (_game.onChange$ | async).winner.symbol }}s
     </p>
-    <p *ngIf="!(_stateService.state$ | async).winner && 
-              (_stateService.state$ | async).plays == 9">
+    <p *ngIf="!(_game.onChange$ | async).winner && 
+              (_game.onChange$ | async).plays == 9">
       It's a Draw! Try again!
     </p>
   </h3>

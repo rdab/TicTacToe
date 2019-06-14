@@ -2,55 +2,75 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface State {
-  turn: Player;
+  turn: string;
   values: string[][];
   plays: number;
-  winner: Player;
   player1: string;
   player2: string;
 }
 
-class Player {
-  private _name: string;
-  private _symbol: string;
+export class TicTacToe {
 
-  constructor(public name:string, public symbol:string) {
-    this._name = name;
-    this._symbol = symbol;
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class StateService {
-
+  private _turn: Player;
+  private _values: string[][];
+  private _plays: number;
+  private _winner: Player;
   private _player1: Player;
   private _player2: Player;
-  private _state$: BehaviorSubject<State>;
+  private _subject$: BehaviorSubject<TicTacToe>;
 
-  constructor() {
-    this._player1 = new Player('Player 1', "X");
-    this._player2 = new Player('Player 2', "0");
-    let initState = this.clearState(this._player1);
-    this._state$ = new BehaviorSubject(initState);
-  }
-   
-  get state$(): BehaviorSubject<State> {
-    return this._state$;
-  }
-
-  get state(): State {
-    return this._state$.getValue();
-  }
-
-  set state(state: State) {
-    this._state$.next(state);
+  constructor(player1='', player2='', values?: string[][], plays?: number, turn?: string){
+    this._player1 = new Player(player1, "X");
+    this._player2 = new Player(player2, "0");
+    this._values = values || [
+      ['-','-','-',],
+      ['-','-','-',],
+      ['-','-','-',],
+    ];
+    this._plays = plays || 0;
+    this._winner = null;
+    this._turn = this._player1; 
+    if (turn){
+      this._turn = (turn == this._player1.name) ? this._player1 : this._player2;
+    }
+    this._subject$ = new BehaviorSubject(this);
   }
 
+  get turn(): Player {
+    return this._turn;
+  }
+
+  get values(): string[][] {
+    return this._values;
+  }
+
+  get plays(): number {
+    return this._plays;
+  }
+
+  get winner(): Player {
+    return this._winner;
+  }
+
+  get player1(): string {
+    return this._player1.name;
+  }
+
+  get player2(): string {
+    return this._player2.name;
+  }
+
+  get onChange$(): BehaviorSubject<TicTacToe>{
+    return this._subject$;
+  }
+
+  private notify(){
+    this._subject$.next(this);
+  }
+  
   checkWinner(): Player {
-    if (this.state.plays < 5){ return null }
-    let v = this.state.values;
+    if (this.plays < 5){ return null }
+    let v = this.values;
     let winMatrix = [
       [[0,0],[0,1],[0,2]],
       [[1,0],[1,1],[1,2]],
@@ -76,44 +96,57 @@ export class StateService {
   }
 
   updateValue(row, col){
-    if (this.state.values[row][col] !== '-'){
+    if (this.values[row][col] !== '-'){
       return null;
     }
-    this.state.values[row][col] = this.state.turn.symbol;
-    this.state.plays++;
+    this.values[row][col] = this._turn.symbol;
+    this._plays++;
     let winner = this.checkWinner();
     if (winner){
-      this.state.winner = winner;
+      this._winner = winner;
     } else {
-      this.state.turn = this.state.turn === this._player1 ? this._player2 : this._player1;
+      this._turn = this._turn === this._player1 ? this._player2 : this._player1;
     }
-    this.state = this.state;
+    this.notify()
+  }
+}
+
+class Player {
+  private _name: string;
+  private _symbol: string;
+
+  constructor(public name:string, public symbol:string) {
+    this._name = name;
+    this._symbol = symbol;
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StateService {
+
+  private _game: TicTacToe; 
+
+  constructor() {
+    this._game = new TicTacToe();
   }
 
-  reset() {
-    this.state = this.clearState();
+  get currentGame(): TicTacToe {
+    return this._game;
   }
 
-  clearState(startingPlayer?: Player){
-    let player = startingPlayer || this._player1;
-    return {
-      turn: player,
-      values: [
-        ['-','-','-',],
-        ['-','-','-',],
-        ['-','-','-',],
-      ],
-      plays: 0,
-      winner: null,
-      player1: '',
-      player2: '',
-    }
+  newGame(player1='', player2=''){
+    this._game = new TicTacToe(player1, player2);
   }
 
-  setPlayersName(player1: string, player2: string){
-    this._player1.name = player1;
-    this.state.player1 = player1;
-    this._player2.name = player2;
-    this.state.player2 = player2;
+  loadFromJSON(state: State){
+    this._game = new TicTacToe(
+      state['player1'],
+      state['player2'],
+      state['values'],
+      state['plays'],
+      state['turn']
+      );
   }
 }

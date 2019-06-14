@@ -1,7 +1,7 @@
-<button [class.clickable]="_stateService.state.values[row][column] === '-'" 
-        [class.not-clickable]="_stateService.state.values[row][column] !== '-'" 
+<button [class.clickable]="(_game.onChange$ | async).values[row][column] === '-'" 
+        [class.not-clickable]="(_game.onChange$ | async).values[row][column] !== '-'" 
         (click)="_handleSquareClick()"
-        [disabled]="(_stateService.state$ | async).winner || (_stateService.state$ | async).plays == 9"
+        [disabled]="(_game.onChange$ | async).winner || (_game.onChange$ | async).plays == 9"
 >
-    {{ (_stateService.state$ | async).values[row][column] }}
+    {{ (_game.onChange$ | async).values[row][column] }}
 </button>

@@ -11,7 +11,7 @@ export class BoardComponent implements OnInit {
   private _values: string[][];
 
   constructor(stateService: StateService) {
-    this._values = stateService.state.values;
+    this._values = stateService.currentGame.values;
    }
 
   ngOnInit() {
