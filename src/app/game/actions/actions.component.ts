@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { StateService } from '../state.service';
 
 @Component({
-  selector: 'app-reset',
-  templateUrl: './reset.component.html',
-  styleUrls: ['./reset.component.scss']
+  selector: 'app-actions',
+  templateUrl: './actions.component.html',
+  styleUrls: ['./actions.component.scss']
 })
-export class ResetComponent implements OnInit {
+export class ActionsComponent implements OnInit {
 
   private _stateService: StateService;
 
