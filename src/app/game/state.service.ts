@@ -127,9 +127,11 @@ class Player {
 export class StateService {
 
   private _game: TicTacToe; 
+  private _gameList: Array<TicTacToe>;
 
   constructor() {
     this._game = new TicTacToe();
+    this._gameList = new Array();
   }
 
   get currentGame(): TicTacToe {
@@ -148,5 +150,10 @@ export class StateService {
       state['plays'],
       state['turn']
       );
+  }
+
+  saveGame(){
+    this._gameList.push(this._game);
+    console.log(this._gameList);
   }
 }

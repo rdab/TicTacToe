@@ -22,6 +22,6 @@ export class ActionsComponent implements OnInit {
   }
 
   save(){
-    
+    this._stateService.saveGame();
   }
 }
