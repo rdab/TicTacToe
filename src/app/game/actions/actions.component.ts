@@ -20,4 +20,8 @@ export class ActionsComponent implements OnInit {
   reset() {
     this._stateService.newGame();
   }
+
+  save(){
+    
+  }
 }
