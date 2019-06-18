@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { StateService} from "./../state.service";
 import { State } from "../tic-tac-toe";
-import { MyhttpService } from "../../myhttp.service";
 
 @Component({
   selector: 'app-game',
@@ -17,10 +16,10 @@ export class GameComponent implements OnInit {
   private _player2: string = '';
   private _stateService: StateService;
 
-  constructor(route: ActivatedRoute, stateService: StateService, myHttpService: MyhttpService) { 
+  constructor(route: ActivatedRoute, stateService: StateService) { 
     this._stateService = stateService;
     if (route.snapshot.data.continue){
-      myHttpService.getSavedGame().subscribe((state: State) => {
+      stateService.getSavedGame().subscribe((state: State) => {
         console.log(state);
         stateService.loadFromJSON(state);
         this._status = 'success';
