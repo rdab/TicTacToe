@@ -3,11 +3,16 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { TicTacToe, State } from "./tic-tac-toe";
 import { isNull } from 'util';
 
+const httpOptions = {
+  headers:  new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class StateService {
 
+  private gamesUrl = '';
   private _game: TicTacToe; 
   private _gameList: Array<TicTacToe>;
 
@@ -48,9 +53,6 @@ export class StateService {
   }
 
   _saveGame(game: TicTacToe) {
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    }
     if (isNull(game.uri)) {
       return this.http.post('http://localhost:3000/games', game, httpOptions);
     }
