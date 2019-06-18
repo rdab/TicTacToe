@@ -14,10 +14,8 @@ export class GameComponent implements OnInit {
   private _status: string = 'fetching';
   private _player1: string = '';
   private _player2: string = '';
-  private _stateService: StateService;
 
-  constructor(route: ActivatedRoute, stateService: StateService) { 
-    this._stateService = stateService;
+  constructor(route: ActivatedRoute, private stateService: StateService) { 
     if (route.snapshot.data.continue){
       stateService.getSavedGame().subscribe((state: State) => {
         console.log(state);
@@ -33,7 +31,7 @@ export class GameComponent implements OnInit {
   }
 
   _handleSubmitClick(){
-    this._stateService.newGame(this._player1, this._player2);
+    this.stateService.newGame(this._player1, this._player2);
   }
 
   ngOnInit() {

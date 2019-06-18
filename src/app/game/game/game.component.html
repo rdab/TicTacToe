@@ -1,7 +1,7 @@
 <div *ngIf="_status == 'fetching'">Loading...</div>
 <div *ngIf="_status == 'success'">
 
-    <form *ngIf="(_stateService.currentGame.onChange$ | async).player1 == '' || (_stateService.currentGame.onChange$ | async).player2 == ''">
+    <form *ngIf="(stateService.currentGame.onChange$ | async).player1 == '' || (stateService.currentGame.onChange$ | async).player2 == ''">
         <div>
             <label>Player 1 Name</label>
             <input [(ngModel)]="_player1" name='player1' type="text" />
@@ -15,7 +15,7 @@
         </button>
     </form>
 
-    <div *ngIf="(_stateService.currentGame.onChange$ | async).player1 != '' && (_stateService.currentGame.onChange$ | async).player2 != ''">
+    <div *ngIf="(stateService.currentGame.onChange$ | async).player1 != '' && (stateService.currentGame.onChange$ | async).player2 != ''">
         <app-header></app-header>
         <app-board></app-board>
         <app-play-counter></app-play-counter>
