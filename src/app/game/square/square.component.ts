@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StateService, TicTacToe } from './../state.service'
+import { StateService } from './../state.service'
+import { TicTacToe } from "../tic-tac-toe";
 
 @Component({
   selector: 'app-square',

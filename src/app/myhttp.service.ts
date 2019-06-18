@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { TicTacToe } from "./game/state.service";
+import { TicTacToe } from "./game/tic-tac-toe";
 import { isNull } from 'util';
 
 @Injectable({
