@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { MyhttpService } from '../myhttp.service';
 
 export interface State {
   turn: string;
@@ -7,6 +8,7 @@ export interface State {
   plays: number;
   player1: string;
   player2: string;
+  id: string;
 }
 
 export class TicTacToe {
@@ -18,8 +20,10 @@ export class TicTacToe {
   private _player1: Player;
   private _player2: Player;
   private _subject$: BehaviorSubject<TicTacToe>;
+  private _id: string;
 
   constructor(player1='', player2='', values?: string[][], plays?: number, turn?: string){
+    this._id = null;
     this._player1 = new Player(player1, "X");
     this._player2 = new Player(player2, "0");
     this._values = values || [
@@ -62,6 +66,14 @@ export class TicTacToe {
 
   get onChange$(): BehaviorSubject<TicTacToe>{
     return this._subject$;
+  }
+
+  get uri(): string {
+    return this._id;
+  }
+
+  set uri(newURI) {
+    this._id = newURI;
   }
 
   private notify(){
@@ -109,6 +121,17 @@ export class TicTacToe {
     }
     this.notify()
   }
+
+  toJSON(): State {
+    return {
+      turn: this._turn.name,
+      values: this._values,
+      player1: this._player1.name,
+      player2: this._player2.name,
+      plays: this._plays,
+      id: this._id,
+    }
+  }
 }
 
 class Player {
@@ -127,9 +150,13 @@ class Player {
 export class StateService {
 
   private _game: TicTacToe; 
+  private _gameList: Array<TicTacToe>;
+  private _http: MyhttpService;
 
-  constructor() {
+  constructor(httpService: MyhttpService) {
     this._game = new TicTacToe();
+    this._gameList = new Array();
+    this._http = httpService;
   }
 
   get currentGame(): TicTacToe {
@@ -148,5 +175,14 @@ export class StateService {
       state['plays'],
       state['turn']
       );
+    this._game.uri = state['id'];
+  }
+
+  saveGame(){
+    this._http.saveGame(this._game).subscribe( result => {
+      console.log(result['id']);
+      this._game.uri = result['id'];
+      this._gameList.push(this._game);
+    });
   }
 }
