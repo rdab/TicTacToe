@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { MyhttpService } from '../myhttp.service';
 
 export interface State {
   turn: string;
@@ -7,6 +8,7 @@ export interface State {
   plays: number;
   player1: string;
   player2: string;
+  id: number;
 }
 
 export class TicTacToe {
@@ -64,6 +66,10 @@ export class TicTacToe {
     return this._subject$;
   }
 
+  set uri(newURI) {
+    console.log('New URI received: ', newURI);
+  }
+
   private notify(){
     this._subject$.next(this);
   }
@@ -109,6 +115,17 @@ export class TicTacToe {
     }
     this.notify()
   }
+
+  toJSON(): State {
+    return {
+      turn: this._turn.name,
+      values: this._values,
+      player1: this._player1.name,
+      player2: this._player2.name,
+      plays: this._plays,
+      id: null,
+    }
+  }
 }
 
 class Player {
@@ -128,10 +145,12 @@ export class StateService {
 
   private _game: TicTacToe; 
   private _gameList: Array<TicTacToe>;
+  private _http: MyhttpService;
 
-  constructor() {
+  constructor(httpService: MyhttpService) {
     this._game = new TicTacToe();
     this._gameList = new Array();
+    this._http = httpService;
   }
 
   get currentGame(): TicTacToe {
@@ -153,7 +172,10 @@ export class StateService {
   }
 
   saveGame(){
-    this._gameList.push(this._game);
-    console.log(this._gameList);
+    this._http.saveGame(this._game).subscribe( result => {
+      console.log(result['id']);
+      this._game.uri = result['id'];
+      this._gameList.push(this._game);
+    });
   }
 }
