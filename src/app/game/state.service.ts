@@ -12,7 +12,7 @@ const httpOptions = {
 })
 export class StateService {
 
-  private gamesUrl = '';
+  private _gamesUrl = 'https://api.myjson.com/bins';
   private _game: TicTacToe; 
   private _gameList: Array<TicTacToe>;
 
@@ -49,13 +49,13 @@ export class StateService {
   }
 
   getSavedGame() {
-    return this.http.get('http://localhost:3000/games/1');
+    return this.http.get(`${this._gamesUrl}/1asm89`);
   }
 
   _saveGame(game: TicTacToe) {
     if (isNull(game.uri)) {
-      return this.http.post('http://localhost:3000/games', game, httpOptions);
+      return this.http.post(this._gamesUrl, game, httpOptions);
     }
-    return this.http.put('http://localhost:3000/games'.concat('/', game.uri), game, httpOptions);
+    return this.http.put(game.uri, game, httpOptions);
   }
 }
