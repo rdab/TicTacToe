@@ -8,7 +8,7 @@ export interface State {
   plays: number;
   player1: string;
   player2: string;
-  id: number;
+  id: string;
 }
 
 export class TicTacToe {
@@ -20,8 +20,10 @@ export class TicTacToe {
   private _player1: Player;
   private _player2: Player;
   private _subject$: BehaviorSubject<TicTacToe>;
+  private _id: string;
 
   constructor(player1='', player2='', values?: string[][], plays?: number, turn?: string){
+    this._id = null;
     this._player1 = new Player(player1, "X");
     this._player2 = new Player(player2, "0");
     this._values = values || [
@@ -66,8 +68,12 @@ export class TicTacToe {
     return this._subject$;
   }
 
+  get uri(): string {
+    return this._id;
+  }
+
   set uri(newURI) {
-    console.log('New URI received: ', newURI);
+    this._id = newURI;
   }
 
   private notify(){
@@ -123,7 +129,7 @@ export class TicTacToe {
       player1: this._player1.name,
       player2: this._player2.name,
       plays: this._plays,
-      id: null,
+      id: this._id,
     }
   }
 }
@@ -169,6 +175,7 @@ export class StateService {
       state['plays'],
       state['turn']
       );
+    this._game.uri = state['id'];
   }
 
   saveGame(){
