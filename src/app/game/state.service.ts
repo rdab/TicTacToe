@@ -27,6 +27,7 @@ export class StateService {
 
   newGame(player1='', player2=''){
     this._game = new TicTacToe(player1, player2);
+    return this._game;
   }
 
   loadFromJSON(state: State){
@@ -38,6 +39,7 @@ export class StateService {
       state['turn']
       );
     this._game.uri = state['id'];
+    return this._game;
   }
 
   saveGame(){
