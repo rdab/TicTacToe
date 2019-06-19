@@ -21,6 +21,8 @@ export class GameComponent implements OnInit {
     if (route.snapshot.data.continue){
       stateService.getSavedGame().subscribe((game: TicTacToe) => {
         this.game = game;
+        this._player1 = game.player1;
+        this._player2 = game.player2;
         this._status = 'success';
       }, error => {
         this._status = error.statusText;
