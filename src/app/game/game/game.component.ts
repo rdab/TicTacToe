@@ -25,9 +25,9 @@ export class GameComponent implements OnInit {
       }, error => {
         this._status = error.statusText;
       });
-    } else {
-      this._status = 'success';
+      return;
     }
+    this._status = 'success';
   }
 
   _handleSubmitClick(){
