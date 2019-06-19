@@ -47,7 +47,7 @@ export class GameComponent implements OnInit {
   }
 
   save(){
-    if (this.game.plays) {
+    if (this.game.uri) {
       this.stateService.updateGame(this.game).subscribe();
     } else {
       this.stateService.addGame(this.game).subscribe();
