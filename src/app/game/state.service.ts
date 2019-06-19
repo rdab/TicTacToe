@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { tap, map } from "rxjs/operators";
-import { TicTacToe, State } from "./tic-tac-toe";
-import { isNull } from 'util';
+import { TicTacToe } from "./tic-tac-toe";
 
 const httpOptions = {
   headers:  new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -27,18 +26,6 @@ export class StateService {
     return this._game;
   }
 
-  loadFromJSON(state: State){
-    this._game = new TicTacToe(
-      state['player1'],
-      state['player2'],
-      state['values'],
-      state['plays'],
-      state['turn']
-      );
-    this._game.uri = state['id'];
-    return this._game;
-  }
-
   getSavedGame() {
     let len = this._gameList.length;
     let url = this._initialUrl;
@@ -52,7 +39,7 @@ export class StateService {
   }
 
   addGame(game: TicTacToe){
-    return this.http.post(this._gamesUrl, game, httpOptions)
+    return this.http.post<TicTacToe>(this._gamesUrl, game, httpOptions)
       .pipe(
         tap(res => {
           game.uri = res['uri'];
@@ -62,6 +49,6 @@ export class StateService {
   }
 
   updateGame(game: TicTacToe) {
-    return this.http.put(game.uri, game, httpOptions);
+    return this.http.put<TicTacToe>(game.uri, game, httpOptions);
   }
 }

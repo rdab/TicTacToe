@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from "@angular/router";
 import { StateService} from "./../state.service";
-import { State, TicTacToe } from "../tic-tac-toe";
+import { TicTacToe } from "../tic-tac-toe";
 
 @Component({
   selector: 'app-game',
