@@ -35,6 +35,8 @@ export class GameComponent implements OnInit {
   }
 
   _handleSubmitClick(){
+    this._player1 = this._player1.trim();
+    this._player2 = this._player2.trim();
     this.game = new TicTacToe(this._player1, this._player2);
     this.updatePlays();
   }
