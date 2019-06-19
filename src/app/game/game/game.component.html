@@ -10,7 +10,8 @@
             <label>Player 2 Name</label>
             <input [(ngModel)]="_player2" name='player2' type="text" />
         </div>
-        <button (click)="_handleSubmitClick()" type="submit">
+        <button (click)="_handleSubmitClick()" type="submit"
+                [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
             Submit
         </button>
     </form>
