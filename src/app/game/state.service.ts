@@ -39,11 +39,12 @@ export class StateService {
     return this._game;
   }
 
-  saveGame(){
-    this._saveGame(this._game).subscribe( result => {
-      console.log(result['id']);
-      this._game.uri = result['id'];
-      this._gameList.push(this._game.uri);
+  saveGame(game: TicTacToe){
+    this._saveGame(game).subscribe( result => {
+      console.log(result);
+      game.uri = result['uri'];
+      this._gameList.push(game.uri);
+      console.log(this._gameList);
     });
   }
 

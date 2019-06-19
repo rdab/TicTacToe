@@ -42,6 +42,6 @@ export class GameComponent implements OnInit {
   }
 
   save(){
-    this.stateService.saveGame();
+    this.stateService.saveGame(this.game);
   }
 }

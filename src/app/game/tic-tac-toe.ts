@@ -27,10 +27,9 @@ export class TicTacToe {
   private _player1: Player;
   private _player2: Player;
   private _subject$: BehaviorSubject<TicTacToe>;
-  private _id: string;
 
-  constructor(player1 = '', player2 = '', values?: string[][], plays?: number, turn?: string) {
-    this._id = null;
+  constructor(player1 = '', player2 = '', values?: string[][], 
+              plays?: number, turn?: string, public uri = null) {
     this._player1 = new Player(player1, "X");
     this._player2 = new Player(player2, "0");
     this._values = values || [
@@ -73,14 +72,6 @@ export class TicTacToe {
 
   get onChange$(): BehaviorSubject<TicTacToe> {
     return this._subject$;
-  }
-
-  get uri(): string {
-    return this._id;
-  }
-
-  set uri(newURI) {
-    this._id = newURI;
   }
 
   private notify() {
@@ -140,14 +131,13 @@ export class TicTacToe {
   }
 
   static fromJSON(uri, json) {
-    let game = new TicTacToe(
+    return new TicTacToe(
       json['player1'],
       json['player2'],
       json['values'],
       json['plays'],
       json['turn'],
+      uri
       );
-    game.uri = uri;
-    return game;
   }
 }
