@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StateService } from '../state.service';
+import { TicTacToe } from '../tic-tac-toe';
 
 @Component({
   selector: 'app-list',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  private games: Array<TicTacToe>;
+
+  constructor(stateService: StateService) { }
 
   ngOnInit() {
   }

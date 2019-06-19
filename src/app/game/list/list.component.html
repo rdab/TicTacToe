@@ -1,3 +1,9 @@
-<p>
-  list works!
-</p>
+<ul>
+  <li *ngFor="let game of games">
+    <span>
+      {{ game.uid }}
+      <button>Continue</button>
+      <button>Delete</button>
+    </span>
+  </li>
+</ul>
