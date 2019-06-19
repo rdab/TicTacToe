@@ -11,9 +11,16 @@ export class ListComponent implements OnInit {
 
   private games: Array<TicTacToe>;
 
-  constructor(stateService: StateService) { }
+  constructor(private stateService: StateService) { }
 
   ngOnInit() {
+    this.fetchGames();
   }
 
+  fetchGames(): void {
+    this.stateService.getGames()
+      .subscribe(games => {
+        this.games = games;
+      });
+  }
 }

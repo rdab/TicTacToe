@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { tap, map } from "rxjs/operators";
 import { TicTacToe } from "./tic-tac-toe";
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers:  new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,6 +25,10 @@ export class StateService {
 
   get currentGame(): TicTacToe {
     return this._game;
+  }
+
+  getGames() {
+    return new Observable<TicTacToe[]>();
   }
 
   getSavedGame() {
