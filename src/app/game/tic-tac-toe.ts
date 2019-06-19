@@ -6,7 +6,6 @@ export interface State {
   plays: number;
   player1: string;
   player2: string;
-  id: string;
 }
 
 class Player {
@@ -137,7 +136,18 @@ export class TicTacToe {
       player1: this._player1.name,
       player2: this._player2.name,
       plays: this._plays,
-      id: this._id,
     }
+  }
+
+  static fromJSON(uri, json) {
+    let game = new TicTacToe(
+      json['player1'],
+      json['player2'],
+      json['values'],
+      json['plays'],
+      json['turn'],
+      );
+    game.uri = uri;
+    return game;
   }
 }

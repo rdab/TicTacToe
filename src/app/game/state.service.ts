@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { tap, map } from "rxjs/operators";
 import { TicTacToe, State } from "./tic-tac-toe";
 import { isNull } from 'util';
 
@@ -13,6 +14,7 @@ const httpOptions = {
 export class StateService {
 
   private _gamesUrl = 'https://api.myjson.com/bins';
+  private _initialUrl = this._gamesUrl.concat('/', '1asm89');
   private _game: TicTacToe; 
   private _gameList: Array<string>;
 
@@ -47,11 +49,14 @@ export class StateService {
 
   getSavedGame() {
     let len = this._gameList.length;
-    let id = '1asm89';
+    let url = this._initialUrl;
     if (len) {
-      id = this._gameList[len-1];
+      url = this._gameList[len-1];
     }
-    return this.http.get(`${ this._gamesUrl }/${ id }`);
+    return this.http.get<TicTacToe>(url)
+      .pipe(
+        map(res => TicTacToe.fromJSON(url, res))
+      );
   }
 
   _saveGame(game: TicTacToe) {

@@ -19,9 +19,8 @@ export class GameComponent implements OnInit {
   constructor(route: ActivatedRoute, private stateService: StateService) { 
 
     if (route.snapshot.data.continue){
-      stateService.getSavedGame().subscribe((state: State) => {
-        console.log(state);
-        this.game = stateService.loadFromJSON(state);
+      stateService.getSavedGame().subscribe((game: TicTacToe) => {
+        this.game = game;
         this._status = 'success';
       }, error => {
         this._status = error.statusText;
