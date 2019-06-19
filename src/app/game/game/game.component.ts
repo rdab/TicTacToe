@@ -15,6 +15,7 @@ export class GameComponent implements OnInit {
   private _player1: string = '';
   private _player2: string = '';
   private game: TicTacToe;
+  private plays: number = 0;
 
   constructor(route: ActivatedRoute, private stateService: StateService) { 
 
@@ -24,6 +25,7 @@ export class GameComponent implements OnInit {
         this._player1 = game.player1;
         this._player2 = game.player2;
         this._status = 'success';
+        this.updatePlays();
       }, error => {
         this._status = error.statusText;
       });
@@ -34,6 +36,7 @@ export class GameComponent implements OnInit {
 
   _handleSubmitClick(){
     this.game = new TicTacToe(this._player1, this._player2);
+    this.updatePlays();
   }
 
   ngOnInit() {
@@ -49,5 +52,11 @@ export class GameComponent implements OnInit {
     } else {
       this.stateService.addGame(this.game).subscribe();
     }
+    this.updatePlays();
+  }
+
+  updatePlays() {
+    console.log('update plays')
+    this.plays = this.game.plays;
   }
 }
