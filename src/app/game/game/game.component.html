@@ -19,7 +19,11 @@
         <app-header></app-header>
         <app-board></app-board>
         <app-play-counter></app-play-counter>
-        <app-actions></app-actions>
+        
+        <div>
+            <button (click)="reset()">New Game</button>
+            <button (click)="save()">Save</button>
+        </div>
     </div>
 </div>
 <div *ngIf="_status != 'fetching' && _status != 'success'">

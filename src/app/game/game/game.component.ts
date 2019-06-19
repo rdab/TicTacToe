@@ -37,4 +37,11 @@ export class GameComponent implements OnInit {
   ngOnInit() {
   }
 
+  reset() {
+    this.stateService.newGame();
+  }
+
+  save(){
+    this.stateService.saveGame();
+  }
 }
