@@ -17,7 +17,6 @@ export class GameComponent implements OnInit {
   private game: TicTacToe;
 
   constructor(route: ActivatedRoute, private stateService: StateService) { 
-    this.game = new TicTacToe();
 
     if (route.snapshot.data.continue){
       stateService.getSavedGame().subscribe((state: State) => {
@@ -40,7 +39,7 @@ export class GameComponent implements OnInit {
   }
 
   reset() {
-    this.game = new TicTacToe();
+    this.game = null;
   }
 
   save(){
