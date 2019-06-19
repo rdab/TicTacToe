@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from "@angular/router";
-import { State, StateService} from "./../state.service";
-import { MyhttpService } from "../../myhttp.service";
+import { StateService} from "./../state.service";
+import { State, TicTacToe } from "../tic-tac-toe";
 
 @Component({
   selector: 'app-game',
@@ -14,29 +14,35 @@ export class GameComponent implements OnInit {
   private _status: string = 'fetching';
   private _player1: string = '';
   private _player2: string = '';
-  private _stateService: StateService;
+  private game: TicTacToe;
 
-  constructor(route: ActivatedRoute, stateService: StateService, myHttpService: MyhttpService) { 
-    this._stateService = stateService;
+  constructor(route: ActivatedRoute, private stateService: StateService) { 
+
     if (route.snapshot.data.continue){
-      myHttpService.getSavedGame().subscribe((state: State) => {
+      stateService.getSavedGame().subscribe((state: State) => {
         console.log(state);
-        stateService.loadFromJSON(state);
+        this.game = stateService.loadFromJSON(state);
         this._status = 'success';
       }, error => {
         this._status = error.statusText;
       });
     } else {
-      stateService.newGame(this._player1, this._player2);
       this._status = 'success';
     }
   }
 
   _handleSubmitClick(){
-    this._stateService.newGame(this._player1, this._player2);
+    this.game = new TicTacToe(this._player1, this._player2);
   }
 
   ngOnInit() {
   }
 
+  reset() {
+    this.game = null;
+  }
+
+  save(){
+    this.stateService.saveGame();
+  }
 }
