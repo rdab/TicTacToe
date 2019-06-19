@@ -14,7 +14,7 @@ export class StateService {
 
   private _gamesUrl = 'https://api.myjson.com/bins';
   private _game: TicTacToe; 
-  private _gameList: Array<TicTacToe>;
+  private _gameList: Array<string>;
 
   constructor(private http: HttpClient) {
     this._game = new TicTacToe();
@@ -41,12 +41,17 @@ export class StateService {
     this._saveGame(this._game).subscribe( result => {
       console.log(result['id']);
       this._game.uri = result['id'];
-      this._gameList.push(this._game);
+      this._gameList.push(this._game.uri);
     });
   }
 
   getSavedGame() {
-    return this.http.get(`${this._gamesUrl}/1asm89`);
+    let len = this._gameList.length;
+    let id = '1asm89';
+    if (len) {
+      id = this._gameList[len-1];
+    }
+    return this.http.get(`${ this._gamesUrl }/${ id }`);
   }
 
   _saveGame(game: TicTacToe) {
