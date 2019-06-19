@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { GameComponent } from './game/game/game.component';
+import { ListComponent } from './game/list/list.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
     path: 'continue',
     component: GameComponent,
     data: { continue: true }
+  },
+  {
+    path: 'games',
+    component: ListComponent,
   },
   {
     path: '',
