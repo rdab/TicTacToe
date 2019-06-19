@@ -42,6 +42,10 @@ export class GameComponent implements OnInit {
   }
 
   save(){
-    this.stateService.saveGame(this.game);
+    if (this.game.plays) {
+      this.stateService.updateGame(this.game).subscribe();
+    } else {
+      this.stateService.addGame(this.game).subscribe();
+    }
   }
 }

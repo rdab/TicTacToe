@@ -39,15 +39,6 @@ export class StateService {
     return this._game;
   }
 
-  saveGame(game: TicTacToe){
-    this._saveGame(game).subscribe( result => {
-      console.log(result);
-      game.uri = result['uri'];
-      this._gameList.push(game.uri);
-      console.log(this._gameList);
-    });
-  }
-
   getSavedGame() {
     let len = this._gameList.length;
     let url = this._initialUrl;
@@ -60,10 +51,17 @@ export class StateService {
       );
   }
 
-  _saveGame(game: TicTacToe) {
-    if (isNull(game.uri)) {
-      return this.http.post(this._gamesUrl, game, httpOptions);
-    }
+  addGame(game: TicTacToe){
+    return this.http.post(this._gamesUrl, game, httpOptions)
+      .pipe(
+        tap(res => {
+          game.uri = res['uri'];
+          this._gameList.push(game.uri);
+        })
+      );
+  }
+
+  updateGame(game: TicTacToe) {
     return this.http.put(game.uri, game, httpOptions);
   }
 }
