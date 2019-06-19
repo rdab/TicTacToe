@@ -18,9 +18,6 @@ export class ListComponent implements OnInit {
   }
 
   fetchGames(): void {
-    this.stateService.getGames()
-      .subscribe(games => {
-        this.games = games;
-      });
+    this.games = this.stateService.getGames();
   }
 }
