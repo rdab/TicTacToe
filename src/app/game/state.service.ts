@@ -25,11 +25,6 @@ export class StateService {
     return this._game;
   }
 
-  newGame(player1='', player2=''){
-    this._game = new TicTacToe(player1, player2);
-    return this._game;
-  }
-
   loadFromJSON(state: State){
     this._game = new TicTacToe(
       state['player1'],

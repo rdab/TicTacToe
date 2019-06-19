@@ -17,6 +17,8 @@ export class GameComponent implements OnInit {
   private game: TicTacToe;
 
   constructor(route: ActivatedRoute, private stateService: StateService) { 
+    this.game = new TicTacToe();
+
     if (route.snapshot.data.continue){
       stateService.getSavedGame().subscribe((state: State) => {
         console.log(state);
@@ -26,20 +28,19 @@ export class GameComponent implements OnInit {
         this._status = error.statusText;
       });
     } else {
-      this.game = stateService.newGame();
       this._status = 'success';
     }
   }
 
   _handleSubmitClick(){
-    this.game = this.stateService.newGame(this._player1, this._player2);
+    this.game = new TicTacToe(this._player1, this._player2);
   }
 
   ngOnInit() {
   }
 
   reset() {
-    this.game = this.stateService.newGame();
+    this.game = new TicTacToe();
   }
 
   save(){

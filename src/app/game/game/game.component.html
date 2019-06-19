@@ -16,9 +16,9 @@
     </form>
 
     <div *ngIf="(game.onChange$ | async).player1 != '' && (game.onChange$ | async).player2 != ''">
-        <app-header></app-header>
-        <app-board></app-board>
-        <app-play-counter></app-play-counter>
+        <app-header [game]="game"></app-header>
+        <app-board  [game]="game"></app-board>
+        <app-play-counter [game]="game"></app-play-counter>
         
         <div>
             <button (click)="reset()">New Game</button>
