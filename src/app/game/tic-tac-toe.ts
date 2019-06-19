@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 
-export interface State {
+interface State {
   turn: string;
   values: string[][];
   plays: number;
