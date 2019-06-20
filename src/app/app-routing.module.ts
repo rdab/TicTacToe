@@ -19,6 +19,10 @@ const routes: Routes = [
     data: { continue: true }
   },
   {
+    path: 'continue/:id',
+    component: GameComponent,
+  },
+  {
     path: 'games',
     component: ListComponent,
   },
