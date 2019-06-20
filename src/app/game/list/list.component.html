@@ -1,8 +1,8 @@
 <ul>
   <li *ngFor="let game of games">
     <span>
-      {{ game.uri }}
-      <button>Continue</button>
+      {{ game.id }}
+      <button [routerLink]="['/continue', game.id]">Continue</button>
       <button>Delete</button>
     </span>
   </li>
