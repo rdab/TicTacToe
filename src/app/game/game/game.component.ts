@@ -18,20 +18,17 @@ export class GameComponent implements OnInit {
   private plays: number = 0;
 
   constructor(route: ActivatedRoute, private stateService: StateService) { 
-
-    if (route.snapshot.data.continue){
-      stateService.getSavedGame().subscribe((game: TicTacToe) => {
-        this.game = game;
-        this._player1 = game.player1;
-        this._player2 = game.player2;
-        this._status = 'success';
-        this.updatePlays();
-      }, error => {
-        this._status = error.statusText;
-      });
-      return;
+    let id = route.snapshot.paramMap.get('id');
+    if (id) {
+      this.fetchGame(id)
     }
-    this._status = 'success';
+    else if (route.snapshot.data.continue){
+      this.fetchGame(null)
+    }
+    else {
+      this.game = null;
+      this._status = 'success';
+    }
   }
 
   _handleSubmitClick(){
@@ -46,6 +43,18 @@ export class GameComponent implements OnInit {
 
   reset() {
     this.game = null;
+  }
+
+  fetchGame(id) {
+    this.stateService.getSavedGame(id).subscribe((game: TicTacToe) => {
+      this.game = game;
+      this._player1 = game.player1;
+      this._player2 = game.player2;
+      this._status = 'success';
+      this.updatePlays();
+    }, error => {
+      this._status = error.statusText;
+    });
   }
 
   save(){

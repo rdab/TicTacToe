@@ -30,12 +30,18 @@ export class StateService {
     return this._gameList;
   }
 
-  getSavedGame() {
-    let len = this._gameList.length;
-    let url = this._initialUrl;
-    if (len) {
-      url = this._gameList[len-1].uri;
+  getSavedGame(id=null) {
+    let url = this._gamesUrl;
+    let gamesCount = this._gameList.length;
+
+    if (id) {
+      url = url.concat('/', id);
     }
+    else if (gamesCount) {
+      url = this._gameList[gamesCount-1].uri;
+    }
+    else { url = this._initialUrl }
+
     return this.http.get<TicTacToe>(url)
       .pipe(
         map(res => TicTacToe.fromJSON(url, res))
