@@ -1,57 +1,57 @@
 <div *ngIf="_status == 'fetching'" class="loader"></div>
 <div *ngIf="_status == 'success'">
 
-    <form *ngIf="!game">
-        <div>
-            <label>Player 1 Name</label>
-            <input [(ngModel)]="_player1" name='player1' type="text" />
-        </div>
-        <div>
-            <label>Player 2 Name</label>
-            <input [(ngModel)]="_player2" name='player2' type="text" />
-        </div>
-        <button class="btn btn-primary btn-lg" (click)="_handleSubmitClick()" type="submit"
-                [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
-            Submit
-        </button>
-    </form>
+  <form *ngIf="!game">
+    <div>
+      <label>Player 1 Name</label>
+      <input [(ngModel)]="_player1" name='player1' type="text" />
+    </div>
+    <div>
+      <label>Player 2 Name</label>
+      <input [(ngModel)]="_player2" name='player2' type="text" />
+    </div>
+    <button class="btn btn-primary btn-lg" (click)="_handleSubmitClick()" type="submit"
+      [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
+      Submit
+    </button>
+  </form>
 
-    <div *ngIf="game">
-        <app-header [game]="game"></app-header>
-        <app-board  [game]="game"></app-board>
-        <app-play-counter [game]="game"></app-play-counter>
-        
-        <div>
-            <button class="btn btn-secondary" (click)="reset()">Reset</button>
-            <button class="btn btn-primary" 
-                    data-toggle="modal" data-target="#gameNameModal"
-                    [disabled]="plays == game.plays">Save
-            </button>
-        </div>
+  <div *ngIf="game">
+    <app-header [game]="game"></app-header>
+    <app-board [game]="game"></app-board>
+    <app-play-counter [game]="game"></app-play-counter>
+
+    <div>
+      <button class="btn btn-secondary" (click)="reset()">Reset</button>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#gameNameModal"
+        [disabled]="plays == game.plays">Save
+      </button>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="gameNameModal" tabindex="-1" role="dialog" aria-labelledby="gameNameModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="gameNameModalLabel">Introduce a name for this game</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="gameNameInput" data-focus="">
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="gameNameModal" tabindex="-1" role="dialog" aria-labelledby="gameNameModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gameNameModalLabel">Introduce a name for this game</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <input type="text" class="form-control" id="gameNameInput" data-focus="">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 <div *ngIf="_status != 'fetching' && _status != 'success'">
-    There is a problem communicating with the backend. Error: {{ _status }} 
+  There is a problem communicating with the backend. Error: {{ _status }}
 </div>
