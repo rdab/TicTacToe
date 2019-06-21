@@ -59,6 +59,13 @@ export class StateService {
   }
 
   updateGame(game: TicTacToe) {
-    return this.http.put<TicTacToe>(game.uri, game, httpOptions);
+    return this.http.put<TicTacToe>(game.uri, game, httpOptions)
+      .pipe(
+        tap(_ => {
+          let index = this._gameList.findIndex(item => item.uri==game.uri);
+          this._gameList.splice(index, 1);
+          this._gameList.push(game);
+        })
+      );
   }
 }
