@@ -15,7 +15,7 @@ export class StateService {
   private _gamesUrl = 'https://api.myjson.com/bins';
   private _initialUrl = this._gamesUrl.concat('/', '1asm89');
   private _game: TicTacToe; 
-  private _gameList: Array<string>;
+  private _gameList: Array<TicTacToe>;
 
   constructor(private http: HttpClient) {
     this._game = new TicTacToe();
@@ -26,12 +26,22 @@ export class StateService {
     return this._game;
   }
 
-  getSavedGame() {
-    let len = this._gameList.length;
-    let url = this._initialUrl;
-    if (len) {
-      url = this._gameList[len-1];
+  getGames() {
+    return this._gameList;
+  }
+
+  getSavedGame(id=null) {
+    let url = this._gamesUrl;
+    let gamesCount = this._gameList.length;
+
+    if (id) {
+      url = url.concat('/', id);
     }
+    else if (gamesCount) {
+      url = this._gameList[gamesCount-1].uri;
+    }
+    else { url = this._initialUrl }
+
     return this.http.get<TicTacToe>(url)
       .pipe(
         map(res => TicTacToe.fromJSON(url, res))
@@ -43,12 +53,19 @@ export class StateService {
       .pipe(
         tap(res => {
           game.uri = res['uri'];
-          this._gameList.push(game.uri);
+          this._gameList.push(game);
         })
       );
   }
 
   updateGame(game: TicTacToe) {
-    return this.http.put<TicTacToe>(game.uri, game, httpOptions);
+    return this.http.put<TicTacToe>(game.uri, game, httpOptions)
+      .pipe(
+        tap(_ => {
+          let index = this._gameList.findIndex(item => item.uri==game.uri);
+          this._gameList.splice(index, 1);
+          this._gameList.push(game);
+        })
+      );
   }
 }

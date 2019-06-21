@@ -74,6 +74,11 @@ export class TicTacToe {
     return this._subject$;
   }
 
+  get id() {
+    let url = new URL(this.uri);
+    return url.pathname.split('/').pop();
+  }
+
   private notify() {
     this._subject$.next(this);
   }

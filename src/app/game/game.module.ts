@@ -7,12 +7,15 @@ import { SquareComponent } from './square/square.component';
 import { StateService } from './state.service';
 import { PlayCounterComponent } from './play-counter/play-counter.component';
 import { FormsModule } from "@angular/forms";
+import { ListComponent } from './list/list.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent, PlayCounterComponent],
+  declarations: [GameComponent, HeaderComponent, BoardComponent, SquareComponent, PlayCounterComponent, ListComponent],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule
   ],
   exports: [
     GameComponent,
