@@ -1,4 +1,4 @@
-<div *ngIf="_status == 'fetching'">Loading...</div>
+<div *ngIf="_status == 'fetching'" class="loader"></div>
 <div *ngIf="_status == 'success'">
 
     <form *ngIf="!game">
@@ -10,7 +10,7 @@
             <label>Player 2 Name</label>
             <input [(ngModel)]="_player2" name='player2' type="text" />
         </div>
-        <button (click)="_handleSubmitClick()" type="submit"
+        <button class="btn btn-primary btn-lg" (click)="_handleSubmitClick()" type="submit"
                 [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
             Submit
         </button>
@@ -22,9 +22,10 @@
         <app-play-counter [game]="game"></app-play-counter>
         
         <div>
-            <button (click)="reset()">Reset</button>
-            <button (click)="save()" [disabled]="plays == game.plays"
-            >Save</button>
+            <button class="btn btn-secondary" (click)="reset()">Reset</button>
+            <button class="btn btn-primary" (click)="save()" 
+                    [disabled]="plays == game.plays">Save
+            </button>
         </div>
     </div>
 </div>
