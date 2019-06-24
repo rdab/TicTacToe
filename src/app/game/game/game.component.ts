@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { StateService} from "./../state.service";
 import { TicTacToe } from "../tic-tac-toe";
 
@@ -18,13 +18,11 @@ export class GameComponent implements OnInit {
   private plays: number = 0;
   private showNameInput = false;
 
-  constructor(route: ActivatedRoute, private stateService: StateService) { 
-    let id = route.snapshot.paramMap.get('id');
-    if (id) {
-      this.fetchGame(id)
-    }
-    else if (route.snapshot.data.continue){
-      this.fetchGame(null)
+  constructor(route: ActivatedRoute, router: Router, private stateService: StateService) {
+    let id = route.snapshot.paramMap.get('id') || this.stateService.latest;
+    if (id) { this.fetchGame(id) }
+    else if (route.snapshot.data.continue) {
+      router.navigate(['/new']);
     }
     else {
       this.game = null;
@@ -80,6 +78,4 @@ export class GameComponent implements OnInit {
   canSave() {
     return this.plays == this.game.plays;
   }
-
-
 }
