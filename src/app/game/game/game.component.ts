@@ -70,7 +70,6 @@ export class GameComponent implements OnInit {
   }
 
   updatePlays() {
-    console.log('update plays')
     this.plays = this.game.plays;
   }
 
