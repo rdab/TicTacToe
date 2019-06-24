@@ -68,4 +68,9 @@ export class StateService {
         })
       );
   }
+
+  deleteGame(game:TicTacToe){
+    let index = this._gameList.findIndex(item => item.uri==game.uri);
+    let deletedGame = this._gameList.splice(index, 1);
+  }
 }

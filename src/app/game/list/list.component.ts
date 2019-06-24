@@ -20,4 +20,10 @@ export class ListComponent implements OnInit {
   fetchGames(): void {
     this.games = this.stateService.getGames();
   }
+
+  removeGame(game: TicTacToe): void {
+    console.log('received ', game.id);
+    this.stateService.deleteGame(game);
+    this.fetchGames();
+  }
 }
