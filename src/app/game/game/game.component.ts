@@ -58,13 +58,15 @@ export class GameComponent implements OnInit {
     });
   }
 
-  save(){
+  save(name){
+    this.game.name = name;
     if (this.game.uri) {
       this.stateService.updateGame(this.game).subscribe();
     } else {
       this.stateService.addGame(this.game).subscribe();
     }
     this.updatePlays();
+    this.toggleSaveButton();
   }
 
   updatePlays() {

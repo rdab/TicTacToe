@@ -28,8 +28,9 @@ export class TicTacToe {
   private _player2: Player;
   private _subject$: BehaviorSubject<TicTacToe>;
 
-  constructor(player1 = '', player2 = '', values?: string[][], 
-              plays?: number, turn?: string, public uri = null) {
+  constructor(player1 = '', player2 = '', values?: string[][],
+              plays?: number, turn?: string, public uri = null,
+              public name = '') {
     this._player1 = new Player(player1, "X");
     this._player2 = new Player(player2, "0");
     this._values = values || [
