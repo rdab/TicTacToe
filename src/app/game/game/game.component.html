@@ -23,7 +23,7 @@
 
     <div *ngIf="!showNameInput">
       <button class="btn btn-secondary btn_margin" (click)="reset()">Reset</button>
-      <button class="btn btn-primary btn_margin" [disabled]="plays == game.plays" (click)="toggleSaveButton()">
+      <button class="btn btn-primary btn_margin" [disabled]="canSave()" (click)="toggleSaveButton()">
         Save
       </button>
     </div>

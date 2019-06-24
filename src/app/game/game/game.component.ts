@@ -76,4 +76,10 @@ export class GameComponent implements OnInit {
   toggleSaveButton() {
     this.showNameInput = !this.showNameInput;
   }
+
+  canSave() {
+    return this.plays == this.game.plays;
+  }
+
+
 }
