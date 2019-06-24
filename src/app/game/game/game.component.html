@@ -10,7 +10,7 @@
       <label>Player 2 Name</label>
       <input [(ngModel)]="_player2" name='player2' type="text" />
     </div>
-    <button class="btn btn-primary btn-lg" (click)="_handleSubmitClick()" type="submit"
+    <button class="btn btn-primary btn-lg btn_margin" (click)="_handleSubmitClick()" type="submit"
       [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
       Submit
     </button>
@@ -22,8 +22,8 @@
     <app-play-counter [game]="game"></app-play-counter>
 
     <div *ngIf="!showNameInput">
-      <button class="btn btn-secondary" (click)="reset()">Reset</button>
-      <button class="btn btn-primary" [disabled]="plays == game.plays" (click)="toggleSaveButton()">
+      <button class="btn btn-secondary btn_margin" (click)="reset()">Reset</button>
+      <button class="btn btn-primary btn_margin" [disabled]="plays == game.plays" (click)="toggleSaveButton()">
         Save
       </button>
     </div>
@@ -31,7 +31,7 @@
       <div class="input-group mb-3">
         <input type="text" #name value="{{ game.name }}" class="form-control" placeholder="Game's name" aria-label="Game's name" aria-describedby="confirmBtn">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button"
+          <button class="btn btn-primary " type="button"
                   id="confirmBtn" (click)="save(name.value)" >
             Confirm
           </button>
