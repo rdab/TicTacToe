@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   private _player2: string = '';
   private game: TicTacToe;
   private plays: number = 0;
+  private showNameInput = false;
 
   constructor(route: ActivatedRoute, private stateService: StateService) { 
     let id = route.snapshot.paramMap.get('id');
@@ -57,17 +58,23 @@ export class GameComponent implements OnInit {
     });
   }
 
-  save(){
+  save(name){
+    this.game.name = name;
     if (this.game.uri) {
       this.stateService.updateGame(this.game).subscribe();
     } else {
       this.stateService.addGame(this.game).subscribe();
     }
     this.updatePlays();
+    this.toggleSaveButton();
   }
 
   updatePlays() {
     console.log('update plays')
     this.plays = this.game.plays;
+  }
+
+  toggleSaveButton() {
+    this.showNameInput = !this.showNameInput;
   }
 }

@@ -1,34 +1,46 @@
 <div *ngIf="_status == 'fetching'" class="loader"></div>
 <div *ngIf="_status == 'success'">
 
-    <form *ngIf="!game">
-        <div>
-            <label>Player 1 Name</label>
-            <input [(ngModel)]="_player1" name='player1' type="text" />
-        </div>
-        <div>
-            <label>Player 2 Name</label>
-            <input [(ngModel)]="_player2" name='player2' type="text" />
-        </div>
-        <button class="btn btn-primary btn-lg" (click)="_handleSubmitClick()" type="submit"
-                [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
-            Submit
-        </button>
-    </form>
-
-    <div *ngIf="game">
-        <app-header [game]="game"></app-header>
-        <app-board  [game]="game"></app-board>
-        <app-play-counter [game]="game"></app-play-counter>
-        
-        <div>
-            <button class="btn btn-secondary" (click)="reset()">Reset</button>
-            <button class="btn btn-primary" (click)="save()" 
-                    [disabled]="plays == game.plays">Save
-            </button>
-        </div>
+  <form *ngIf="!game">
+    <div>
+      <label>Player 1 Name</label>
+      <input [(ngModel)]="_player1" name='player1' type="text" />
     </div>
-</div>
+    <div>
+      <label>Player 2 Name</label>
+      <input [(ngModel)]="_player2" name='player2' type="text" />
+    </div>
+    <button class="btn btn-primary btn-lg btn_margin" (click)="_handleSubmitClick()" type="submit"
+      [disabled]="_player1 == '' || _player2 == '' || _player1 == _player2">
+      Submit
+    </button>
+  </form>
+
+  <div *ngIf="game">
+    <app-header [game]="game"></app-header>
+    <app-board [game]="game"></app-board>
+    <app-play-counter [game]="game"></app-play-counter>
+
+    <div *ngIf="!showNameInput">
+      <button class="btn btn-secondary btn_margin" (click)="reset()">Reset</button>
+      <button class="btn btn-primary btn_margin" [disabled]="plays == game.plays" (click)="toggleSaveButton()">
+        Save
+      </button>
+    </div>
+    <div *ngIf="showNameInput" class="col-8 offset-2 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4" >
+      <div class="input-group mb-3">
+        <input type="text" #name value="{{ game.name }}" (keyup)="0" class="form-control" placeholder="Game's name" aria-label="Game's name" aria-describedby="confirmBtn">
+        <div class="input-group-append" id="confirmBtn">
+          <button class="btn btn-primary " type="button" 
+                  (click)="save(name.value)" [disabled]="name.value == ''">
+            Confirm
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="toggleSaveButton()">Discard</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <div *ngIf="_status != 'fetching' && _status != 'success'">
-    There is a problem communicating with the backend. Error: {{ _status }} 
+  There is a problem communicating with the backend. Error: {{ _status }}
 </div>

@@ -1,7 +1,7 @@
 <div>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let game of games">
-      {{ game.id }}
+      {{ game.name }}
       <span>
         <button class="btn btn-primary btn-sm" [routerLink]="['/continue', game.id]">Continue</button>
         <button class="btn btn-danger btn-sm">Delete</button>
