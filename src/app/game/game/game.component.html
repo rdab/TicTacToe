@@ -21,37 +21,22 @@
     <app-board [game]="game"></app-board>
     <app-play-counter [game]="game"></app-play-counter>
 
-    <div>
+    <div *ngIf="!showNameInput">
       <button class="btn btn-secondary" (click)="reset()">Reset</button>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#gameNameModal"
-        [disabled]="plays == game.plays">Save
+      <button class="btn btn-primary" [disabled]="plays == game.plays" (click)="toggleSaveButton()">
+        Save
       </button>
     </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="gameNameModal" tabindex="-1" role="dialog" aria-labelledby="gameNameModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="gameNameModalLabel">Introduce a name for this game</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <input type="text" class="form-control" id="gameNameInput" data-focus="">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+    <div *ngIf="showNameInput" class="col-8 offset-2 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4" >
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Game's name" aria-label="Game's name" aria-describedby="confirmBtn">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="confirmBtn">Confirm</button>
         </div>
       </div>
     </div>
   </div>
-</div>
+
 <div *ngIf="_status != 'fetching' && _status != 'success'">
   There is a problem communicating with the backend. Error: {{ _status }}
 </div>
