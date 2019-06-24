@@ -6,6 +6,7 @@ interface State {
   plays: number;
   player1: string;
   player2: string;
+  name: string;
 }
 
 class Player {
@@ -133,6 +134,7 @@ export class TicTacToe {
       player1: this._player1.name,
       player2: this._player2.name,
       plays: this._plays,
+      name: this.name,
     }
   }
 
@@ -143,7 +145,8 @@ export class TicTacToe {
       json['values'],
       json['plays'],
       json['turn'],
-      uri
+      uri,
+      json['name'],
       );
   }
 }
