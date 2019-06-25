@@ -19,8 +19,12 @@ export class GameComponent implements OnInit {
   private showNameInput = false;
 
   constructor(route: ActivatedRoute, router: Router, private stateService: StateService) {
-    let id = route.snapshot.paramMap.get('id') || this.stateService.latest;
-    if (id) { this.fetchGame(id) }
+    if (route.snapshot.paramMap.has('id')) { 
+      this.fetchGame(route.snapshot.paramMap.get('id'));
+    }
+    else if (route.snapshot.data.continue && this.stateService.latest) {
+      this.fetchGame(this.stateService.latest);
+    }
     else if (route.snapshot.data.continue) {
       router.navigate(['/new']);
     }
