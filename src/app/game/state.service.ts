@@ -48,6 +48,9 @@ export class StateService {
       .pipe(
         tap(_ => {
           this.latest = game.id;
+          let index = this._gameList.findIndex(item => item.uri==game.uri);
+          this._gameList.splice(index, 1);
+          this._gameList.push(game)
         })
       );
   }
