@@ -14,10 +14,17 @@ export class StateService {
 
   private _gamesUrl = 'https://api.myjson.com/bins';
   private _gameList: Array<TicTacToe>;
-  public latest: string = null;
 
   constructor(private http: HttpClient) {
     this._gameList = new Array();
+  }
+
+  get latest() {
+    let index = this._gameList.length;
+    if (index) {
+      return this._gameList[index-1].id;
+    }
+    return null;
   }
 
   getGames() {
@@ -38,7 +45,6 @@ export class StateService {
         tap(res => {
           game.uri = res['uri'];
           this._gameList.push(game);
-          this.latest = game.id;
         })
       );
   }
@@ -47,7 +53,6 @@ export class StateService {
     return this.http.put<TicTacToe>(game.uri, game, httpOptions)
       .pipe(
         tap(_ => {
-          this.latest = game.id;
           let index = this._gameList.findIndex(item => item.uri==game.uri);
           this._gameList.splice(index, 1);
           this._gameList.push(game)
@@ -58,6 +63,5 @@ export class StateService {
   deleteGame(game:TicTacToe){
     let index = this._gameList.findIndex(item => item.uri==game.uri);
     this._gameList.splice(index, 1);
-    if (this.latest == game.id) { this.latest = null}
   }
 }
